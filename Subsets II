@@ -1,0 +1,48 @@
+Copyright © 2015 LeetCode
+Question link: https://oj.leetcode.com/problems/subsets-ii/
+
+Given a collection of integers that might contain duplicates, S, return all possible subsets.
+
+Note:
+Elements in a subset must be in non-descending order.
+The solution set must not contain duplicate subsets.
+For example,
+If S = [1,2,2], a solution is:
+
+[
+  [2],
+  [1],
+  [1,2,2],
+  [2,2],
+  [1,2],
+  []
+]
+
+# iterative method
+
+    def subsetsWithDup(self, S):
+        # write your code here
+        res = [[]]
+        for num in sorted(S):
+            res += [arr + [num] for arr in res if arr + [num] not in res]
+        return res
+        
+# DFS
+    def subsetsWithDup(self, S):
+        # write your code here
+        res = []
+        if S is None or len(S) == 0:
+            return res
+        arr = []
+        S.sort()
+        self.helper(S, res, arr, 0)
+        return res
+    
+    def helper(self, S, res, arr, pos):
+        res.append(list(arr))
+        for i in xrange(pos, len(S)):
+            if i != pos and S[i] == S[i-1]:
+                continue
+            arr.append(S[i])
+            self.helper(S, res, arr,i + 1)
+            del arr[-1]
