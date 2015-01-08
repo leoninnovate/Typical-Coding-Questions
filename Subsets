@@ -1,0 +1,46 @@
+Copyright © 2015 LeetCode
+Question link: https://oj.leetcode.com/problems/subsets/
+
+Given a set of distinct integers, S, return all possible subsets.
+
+Note:
+Elements in a subset must be in non-descending order.
+The solution set must not contain duplicate subsets.
+For example,
+If S = [1,2,3], a solution is:
+
+[
+  [3],
+  [1],
+  [2],
+  [1,2,3],
+  [1,3],
+  [2,3],
+  [1,2],
+  []
+]
+
+# Iterative method
+    def subsets(self, S):
+        # write your code here
+        res = [[]]
+        for element in sorted(S):
+            res += [item + [element] for item in res]
+        return res
+
+# DFS
+    def subsets(self, S):
+        res = []
+        if S is None or len(S) == 0:
+            return res
+        arr = []
+        S.sort()
+        self.helper(res, arr, S, 0)
+        return res
+    
+    def helper(self, res, arr, S, pos):
+        res.append(list(arr))
+        for i in xrange(pos, len(S)):
+            arr.append(S[i])
+            self.helper(res, arr, S, i+1)
+            del arr[-1]
