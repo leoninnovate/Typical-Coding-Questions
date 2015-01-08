@@ -1,2 +1,2 @@
 # Typical-Coding-Questions
-All the questions are from Internet.
+Copyright © 2015 LeetCode
