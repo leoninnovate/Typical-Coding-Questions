@@ -1,0 +1,65 @@
+Copyright © 2015 LeetCode
+Question link: https: https://oj.leetcode.com/problems/merge-sorted-array/
+
+
+Given two sorted integer arrays A and B, merge B into A as one sorted array.
+
+Note:
+You may assume that A has enough space (size that is greater or equal to m + n) to hold additional elements from B. The number of elements initialized in A and B are m and n respectively.
+
+class Solution:
+    # @param A  a list of integers
+    # @param m  an integer, length of A
+    # @param B  a list of integers
+    # @param n  an integer, length of B
+    # @return nothing
+    def merge(self, A, m, B, n):
+        i = m - 1
+        j = n - 1
+        k = m + n - 1
+        while i >= 0 and j >= 0:
+            if A[i] > B[j]:
+                A[k] = A[i]
+                i -= 1
+            else:
+                A[k] = B[j]
+                j -= 1
+            k -= 1
+        while j >= 0:
+            A[k] = B[j]
+            j -= 1
+            k -= 1
+        
+Merge two given sorted integer array A and B into a new sorted integer array.
+
+Example
+A=[1,2,3,4]
+
+B=[2,4,5,6]
+
+return [1,2,2,3,4,4,5,6]
+
+Challenge
+How can you optimize your algorithm if one array is very large and the other is very small?
+
+class Solution:
+    #@param A and B: sorted integer array A and B.
+    #@return: A new sorted integer array
+    def mergeSortedArray(self, A, B):
+        # write your code here
+        res = []
+        i = j = 0
+        while i < len(A) and j < len(B):
+            if A[i] < B[j]:
+                res.append(A[i])
+                i += 1
+            else:
+                res.append(B[j])
+                j += 1
+        while i < len(A):
+            res.append(A[i])
+            i += 1
+        while j < len(B):
+            res.append(B[j])
+            j += 1
+        return res
