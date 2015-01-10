@@ -1,0 +1,26 @@
+Copyright © 2015 LeetCode
+Question link: https://oj.leetcode.com/problems/remove-duplicates-from-sorted-array/
+Given a sorted array, remove the duplicates in place such that each element appear only once and return the new length.
+
+Do not allocate extra space for another array, you must do this in place with constant memory.
+
+For example,
+Given input array A = [1,1,2],
+
+Your function should return length = 2, and A is now [1,2].
+
+class Solution:
+    """
+    @param A: a list of integers
+    @return an integer
+    """
+    def removeDuplicates(self, A):
+        # write your code here
+        if A is None or len(A) == 0:
+            return 0
+        size = 0
+        for i in xrange(len(A)):
+            if A[size] != A[i]:
+                size += 1
+                A[size] = A[i]
+        return size + 1
