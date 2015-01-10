@@ -1,0 +1,36 @@
+Copyright © 2015 LeetCode
+Question link: https://oj.leetcode.com/problems/remove-duplicates-from-sorted-array-ii/
+
+Follow up for "Remove Duplicates":
+What if duplicates are allowed at most twice?
+
+For example,
+Given sorted array A = [1,1,1,2,2,3],
+
+Your function should return length = 5, and A is now [1,1,2,2,3].
+
+class Solution:
+    """
+    @param A: a list of integers
+    @return an integer
+    """
+    def removeDuplicates(self, A):
+        # write your code here
+        if A is None:
+            return 0
+        if len(A) <= 2:
+            return len(A)
+        count = 0
+        size = 0
+        for i in xrange(1, len(A)):
+            if A[size] == A[i] and count < 2:
+                count = 2
+                size += 1
+                A[size] = A[i]
+            elif A[size] != A[i]:
+                count = 0
+                size += 1
+                A[size] = A[i]
+            elif A[size] == A[i] and count == 2:
+                continue
+        return size + 1
