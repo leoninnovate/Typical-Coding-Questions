@@ -1,0 +1,51 @@
+Link: http://lintcode.com/en/problem/rotate-string/
+
+Given a string and an offset, rotate string by offset. (rotate from left to right)
+
+Example
+Given "abcdefg"
+
+for offset=0, return "abcdefg"
+
+for offset=1, return "gabcdef"
+
+for offset=2, return "fgabcde"
+
+for offset=3, return "efgabcd
+
+class Solution:
+    """
+    param A: A string
+    param offset: Rotate string with offset.
+    return: Rotated string.
+    """
+    def rotateString(self, A, offset):
+        write you code here
+        if A == "" or len(A) == 0:
+            return A
+        if offset == 0:
+            return A
+        offset %= len(A)
+        A = list(A)
+        size = len(A)
+        res = ''
+        for i in reversed(xrange(1, offset + 1)):
+            res += A[size - i]
+        for j in xrange(size - offset):
+            res += A[j]
+        return res
+        
+class Solution:
+    """
+    param A: A string
+    param offset: Rotate string with offset.
+    return: Rotated string.
+    """
+    def rotateString(self, A, offset):
+        if A == "" or offset == 0:
+            return A
+        size = len(A)
+        offset %= size
+        left = A[:(size - offset)]
+        right = A[(size - offset):]
+        return right + left
