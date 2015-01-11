@@ -1,0 +1,66 @@
+Copyright © 2015 LeetCode
+Question link: https://oj.leetcode.com/problems/reorder-list/
+
+Given a singly linked list L: L0→L1→…→Ln-1→Ln,
+reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…
+
+You must do this in-place without altering the nodes' values.
+
+For example,
+Given {1,2,3,4}, reorder it to {1,4,2,3}.
+
+"""
+Definition of ListNode
+class ListNode(object):
+
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next
+"""
+class Solution:
+    """
+    @param head: The first node of the linked list.
+    @return: nothing
+    """
+    def reorderList(self, head):
+        # write your code here
+        if head is None or head.next is None:
+            return head
+        mid = self.findMid(head)
+        right = self.reverse(mid.next)
+        mid.next = None
+        self.merge(head, right)
+    def reverse(self, head):
+        prev = None
+        while head:
+            tmp = head.next
+            head.next = prev
+            prev = head
+            head = tmp
+        return prev
+    def merge(self, head1, head2):
+        index = 0
+        dummy = ListNode(0)
+        node = dummy
+        while head1 and head2:
+            if index % 2 == 0:
+                node.next = head1
+                head1 = head1.next
+            else:
+                node.next = head2
+                head2 = head2.next
+            node = node.next
+            index += 1
+        if head1:
+            node.next = head1
+        if head2:
+            node.next = head2
+    def findMid(self, head):
+        slow = head
+        fast = head.next
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        return slow
+    
+
