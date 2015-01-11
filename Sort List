@@ -1,0 +1,53 @@
+Copyright © 2015 LeetCode
+Question link: https://oj.leetcode.com/problems/sort-list/
+
+Sort a linked list in O(n log n) time using constant space complexity.
+
+"""
+Definition of ListNode
+class ListNode(object):
+
+    def __init__(self, val, next=None):
+        self.val = val
+        self.next = next
+"""
+class Solution:
+    """
+    @param head: The first node of the linked list.
+    @return: You should return the head of the sorted linked list,
+                  using constant space complexity.
+    """
+    def sortList(self, head):
+        # write your code here
+        if head is None or head.next is None:
+            return head
+        mid = self.findMid(head)
+        right = self.sortList(mid.next)
+        mid.next = None
+        left = self.sortList(head)
+        return self.merge(left, right)
+    
+    def findMid(self, head):
+        slow = head
+        fast = head
+        while fast and fast.next and fast.next.next:
+            slow = slow.next
+            fast = fast.next.next
+        return slow
+    
+    def merge(self, head1, head2):
+        dummy = ListNode(0)
+        node = dummy
+        while head1 and head2:
+            if head1.val < head2.val:
+                node.next = head1
+                head1 = head1.next
+            else:
+                node.next = head2
+                head2 = head2.next
+            node = node.next
+        if head1:
+            node.next = head1
+        if head2:
+            node.next = head2
+        return dummy.next
