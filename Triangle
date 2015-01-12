@@ -1,0 +1,55 @@
+Copyright © 2015 LeetCode
+Question link: https://oj.leetcode.com/problems/triangle/
+
+Given a triangle, find the minimum path sum from top to bottom. Each step you may move to adjacent numbers on the row below.
+
+For example, given the following triangle
+[
+     [2],
+    [3,4],
+   [6,5,7],
+  [4,1,8,3]
+]
+The minimum path sum from top to bottom is 11 (i.e., 2 + 3 + 5 + 1 = 11).
+
+Note:
+Bonus point if you are able to do this using only O(n) extra space, where n is the total number of rows in the triangle.
+
+class Solution:
+    """
+    @param triangle: a list of lists of integers.
+    @return: An integer, minimum path sum.
+    """
+    def minimumTotal(self, triangle):
+        # write your code here
+        # Bottom - up
+        if triangle is None or len(triangle) == 0:
+            return 0
+        size = len(triangle)
+        dp = [[0 for i in xrange(size)] for j in xrange(size)]
+        for i in xrange(size):
+            dp[size - 1][i] = triangle[size - 1][i]
+        for i in reversed(xrange(size - 1)):
+            for j in xrange(i + 1):
+                dp[i][j] = min(dp[i + 1][j], dp[i + 1][j + 1]) + triangle[i][j]
+        return dp[0][0]
+        
+class Solution:
+    """
+    @param triangle: a list of lists of integers.
+    @return: An integer, minimum path sum.
+    """
+    def minimumTotal(self, triangle):
+        # write your code here
+        if triangle is None or len(triangle) == 0:
+            return 0
+        size = len(triangle)
+        dp = [0 for i in xrange(size)]
+        for i in reversed(xrange(size)):
+            for j in xrange(i + 1):
+                if i == size - 1:
+                    dp[j] = triangle[i][j]
+                else:
+                    dp[j] = triangle[i][j] + min(dp[j], dp[j + 1])
+        return dp[0]
+        
