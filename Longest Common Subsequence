@@ -1,0 +1,39 @@
+Link: http://www.lintcode.com/en/problem/longest-common-subsequence/#
+
+Given two strings, find the longest comment subsequence (LCS).
+
+Your code should return the length of LCS.
+
+Example
+For "ABCD" and "EDCA", the LCS is "A" (or D or C), return 1
+
+For "ABCD" and "EACB", the LCS is "AC", return 2
+
+Clarification
+What's the definition of Longest Common Subsequence?
+
+    * The longest common subsequence (LCS) problem is to find the longest subsequence common to all sequences in a set of sequences (often just two). (Note that a subsequence is different from a substring, for the terms of the former need not be consecutive terms of the original sequence.) It is a classic computer science problem, the basis of file comparison programs such as diff, and has applications in bioinformatics.
+
+    * https://en.wikipedia.org/wiki/Longest_common_subsequence_problem
+    
+
+class Solution:
+    """
+    @param A, B: Two strings.
+    @return: The length of longest common subsequence of A and B.
+    """
+    def longestCommonSubsequence(self, A, B):
+        # write your code here
+        if A is None or B is None:
+            return 0
+        m = len(A)
+        n = len(B)
+        dp = [ [0] * (n + 1) for i in xrange(m + 1)]
+        for i in xrange(m):
+            for j in xrange(n):
+                if A[i] == B[j]:
+                    dp[i + 1][j + 1] = dp[i][j] + 1
+                else:
+                    dp[i + 1][j + 1] = max(dp[i][j + 1], dp[i + 1][j])
+        return dp[m][n]
+        
