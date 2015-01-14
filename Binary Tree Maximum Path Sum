@@ -1,0 +1,42 @@
+Link: https://oj.leetcode.com/problems/binary-tree-maximum-path-sum/
+
+Given a binary tree, find the maximum path sum.
+
+The path may start and end at any node in the tree.
+
+Example
+Given the below binary tree,
+
+       1
+      / \
+     2   3
+Return 6.
+
+"""
+Definition of TreeNode:
+class TreeNode:
+    def __init__(self, val):
+        this.val = val
+        this.left, this.right = None, None
+"""
+class Solution:
+    """
+    @param root: The root of binary tree.
+    @return: An integer
+    """
+    def maxPathSum(self, root):
+        # write your code here
+        Solution.maxSum = -1000
+        self.findMax(root)
+        return Solution.maxSum
+    def findMax(self, p):
+        if p is None:
+            return 0
+        left = self.findMax(p.left)
+        right = self.findMax(p.right)
+        Solution.maxSum = max(p.val + left + right, Solution.maxSum)
+        res = p.val + max(left, right)
+        if res > 0:
+            return res
+        else:
+            return 0
