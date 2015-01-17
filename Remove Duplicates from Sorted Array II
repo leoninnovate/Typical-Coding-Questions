@@ -31,6 +31,7 @@ class Solution:
                 count = 0
                 size += 1
                 A[size] = A[i]
-            elif A[size] == A[i] and count == 2:
+            #elif A[size] == A[i] and count == 2:
+            else:
                 continue
         return size + 1
