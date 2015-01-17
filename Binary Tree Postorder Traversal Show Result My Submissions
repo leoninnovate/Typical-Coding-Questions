@@ -72,20 +72,9 @@ class Solution:
         res.append(root.val)
 
 # Iterative
-"""
-Definition of TreeNode:
-class TreeNode:
-    def __init__(self, val):
-        this.val = val
-        this.left, this.right = None, None
-"""
-
-
 class Solution:
-    """
-    @param root: The root of binary tree.
-    @return: Postorder in ArrayList which contains node values.
-    """
+    # @param root, a tree node
+    # @return a list of integers
     def postorderTraversal(self, root):
         res, stack, prev = [], [], None
         if root is None:
@@ -99,12 +88,13 @@ class Solution:
                     stack.append(curr.left)
                 elif curr.right:
                     stack.append(curr.right)
-            elif curr.left == prev:
+            # Traverse up the tree from the left
+            elif prev == curr.left:
                 if curr.right:
                     stack.append(curr.right)
+            # Traverse up the tree from the right
             else:
                 res.append(curr.val)
                 stack.pop()
             prev = curr
         return res
-                    
