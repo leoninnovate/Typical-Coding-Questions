@@ -53,3 +53,28 @@ class Solution:
                         res = s[i : (j + 1)]
         return res
 # 两边展开法： 只有这种能过leetcode的test code
+class Solution:
+    # @return a string
+    def longestPalindrome(self, s):
+        if not s or len(s) == 0:
+            return ''
+        num = 0
+        size = len(s)
+        for i in xrange(size):
+            s1 = self.getLongest(s, i, i)
+            s2 = self.getLongest(s, i, i + 1)
+            if len(s1) > num:
+                res = s1
+                num = len(s1)
+            if len(s2) > num:
+                res = s2
+                num = len(s2)
+        return res
+    def getLongest(self, s, left, right):
+        size = len(s)
+        while left >=0 and right < size:
+            if s[left] != s[right]:
+                break
+            left -= 1
+            right += 1
+        return s[(left + 1) : right]
