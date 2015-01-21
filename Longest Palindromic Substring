@@ -1,0 +1,55 @@
+Link: https://oj.leetcode.com/problems/longest-palindromic-substring/
+
+Given a string S, find the longest palindromic substring in S. You may assume that the maximum length of S is 1000, and there exists one unique longest palindromic substring.
+
+
+# Brute Force
+O(n^3)
+
+class Solution:
+    # @return a string
+    def longestPalindrome(self, s):
+        if not s or len(s) == 0:
+            return ''
+        size = len(s)
+        num = 0
+        left = 0
+        right = 0
+        for i in xrange(size):
+            for j in xrange(i, size):
+                if self.isPalindrome(s, i, j):
+                    if j - i + 1 > num:
+                        num = j - i + 1
+                        left = i
+                        right = j
+        return s[left : (right + 1)]
+        
+    def isPalindrome(self, s, left, right):
+        while left < right:
+            if s[left] != s[right]:
+                return False
+            left += 1
+            right -= 1
+        return True
+
+# DP
+
+class Solution:
+    # @return a string
+    def longestPalindrome(self, s):
+        res = ''
+        if not s or len(s) == 0:
+            return res
+        size = len(s)
+        num = 0
+        dp = [[False] * size for i in xrange(size)]
+        for j in xrange(size):
+            for i in xrange(j + 1):
+                if s[i] == s[j] and (j - i <= 2 or dp[i + 1][j - 1]):
+                    dp[i][j] = True
+                if dp[i][j]:
+                    if j - i + 1 > num:
+                        num = j - i + 1
+                        res = s[i : (j + 1)]
+        return res
+# 两边展开法： 只有这种能过leetcode的test code
