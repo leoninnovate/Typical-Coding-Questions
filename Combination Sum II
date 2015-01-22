@@ -1,0 +1,51 @@
+Link: http://lintcode.com/en/problem/combination-sum-ii/#
+
+Given a collection of candidate numbers (C) and a target number (T), find all unique combinations in C where the candidate numbers sums to T.
+
+Each number in C may only be used once in the combination.
+
+Note
+All numbers (including target) will be positive integers.
+Elements in a combination (a1, a2, … , ak) must be in non-descending order. (ie, a1 ≤ a2 ≤ … ≤ ak).
+The solution set must not contain duplicate combinations.
+Example
+For example, given candidate set 10,1,6,7,2,1,5 and target 8,
+
+A solution set is: 
+
+[1,7]
+
+[1,2,5]
+
+[2,6]
+
+[1,1,6]
+
+class Solution:    
+    """
+    @param candidates: Given the candidate numbers
+    @param target: Given the target number
+    @return: All the combinations that sum to target
+    """
+    def combinationSum2(self, candidates, target): 
+        # write your code here
+        res = []
+        if not candidates or len(candidates) == 0:
+            return res
+        candidates.sort()
+        self.dfs(candidates, target, [], res, 0)
+        return res
+        
+    def dfs(self, candidates, target, path, res, pos):
+        if target < 0:
+            return
+        if target == 0:
+            if path not in res:
+                res.append(list(path))
+            return
+        size = len(candidates)
+        for i in xrange(pos, size):
+            num = candidates[i]
+            path.append(num)
+            self.dfs(candidates, target - num, path, res, i + 1)
+            del path[-1]
