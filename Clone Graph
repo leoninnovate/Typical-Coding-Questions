@@ -77,3 +77,32 @@ class Solution:
         for neighbor in node.neighbors:
             copy.neighbors.append(self.DFS(neighbor, maps))
         return copy
+
+
+# Definition for a undirected graph node
+# class UndirectedGraphNode:
+#     def __init__(self, x):
+#         self.label = x
+#         self.neighbors = []
+class Solution:
+    # @param node, a undirected graph node
+    # @return a undirected graph node
+    def __init__(self):
+        self.dict = {}
+        
+    def cloneGraph(self, node):
+        # write your code here
+        if not node:
+            return None
+        return self.DFS(node)
+        
+    def DFS(self, node):
+        if node in self.dict:
+            return self.dict[node]
+            
+        copy = UndirectedGraphNode(node.label)
+        self.dict[node] = copy
+        
+        for neighbor in node.neighbors:
+            copy.neighbors.append(self.DFS(neighbor))
+        return copy
