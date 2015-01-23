@@ -1,0 +1,47 @@
+Link: http://lintcode.com/en/problem/majority-number/#
+
+Given an array of integers, the majority number is the number that occurs more than half of the size of the array. Find it.
+
+Example
+For [1, 1, 1, 1, 2, 2, 2], return 1
+
+Challenge
+O(n) time and O(1) space
+
+class Solution:
+    """
+    @param nums: A list of integers
+    @return: The majority number
+    """
+    def majorityNumber(self, nums):
+        # write your code here
+        maps = {}
+        for num in nums:
+            if num in maps:
+                maps[num] += 1
+                if maps[num] > len(nums) / 2:
+                    break
+            else:
+                maps[num] = 1
+        return num
+        
+## moore’s voting
+class Solution:
+    """
+    @param nums: A list of integers
+    @return: The majority number
+    """
+    def majorityNumber(self, nums):
+        # write your code here
+        currNum = -1
+        times = 0
+        for num in nums:
+            if times == 0:
+                currNum = num
+                times += 1
+            else:
+                if num == currNum:
+                    times += 1
+                else:
+                    times -= 1
+        return currNum
