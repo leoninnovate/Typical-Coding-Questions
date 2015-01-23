@@ -30,29 +30,33 @@ Visually, the graph looks like the following:
 #     def __init__(self, x):
 #         self.label = x
 #         self.neighbors = []
-
 class Solution:
     # @param node, a undirected graph node
     # @return a undirected graph node
+    def __init__(self):
+        self.dict = {}
+        
     def cloneGraph(self, node):
-        if node == None:
+        # write your code here
+        if not node:
             return None
         stack = []
-        maps = {}
-        copy = UndirectedGraphNode(node.label)
         stack.append(node)
-        maps[node] = copy
+        copy = UndirectedGraphNode(node.label)
+        self.dict[node] = copy
         while stack:
-            curr = stack.pop()
+            curr = stack[0]
+            del stack[0]
+            copy = self.dict[curr]
             for neighbor in curr.neighbors:
-                if neighbor not in maps:
-                    copy = UndirectedGraphNode(neighbor.label)
-                    maps[curr].neighbors.append(copy)
-                    maps[neighbor] = copy
-                    stack.append(neighbor)
+                if neighbor in self.dict:
+                    copy.neighbors.append(self.dict[neighbor])
                 else:
-                    maps[curr].neighbors.append(maps[neighbor])
-        return copy
+                    stack.append(neighbor)
+                    child = UndirectedGraphNode(neighbor.label)
+                    copy.neighbors.append(child)
+                    self.dict[neighbor] = child
+        return self.dict[node]
   
   
 #### DFS
