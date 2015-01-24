@@ -26,23 +26,27 @@ class Solution:
         if not nums or len(nums) == 0:
             return 0
         size = len(nums)
-        # left
-        left = [-2*32] * (size + 1)
+        
+        # left pass
+        left = [- 2 ** 32] * (size + 1)
         sums = 0
         for i in xrange(1, size + 1):
-                sums += nums[i - 1]
-                left[i] = max(left[i - 1], sums)
-                sums =  max(sums, 0)
-        # right
-        right = [- 2**32] * (size + 1)
+            sums += nums[i - 1]
+            left[i] = max(left[i - 1], sums)
+            sums = max(sums, 0)
+        
+        # right pass
+        right = [- 2 ** 32] * (size + 1)
         sums = 0
         for i in reversed(xrange(size)):
-                sums += nums[i]
-                right[i] = max(right[i + 1], sums)
-                sums = max(sums, 0)
+            sums += nums[i]
+            right[i] = max(right[i + 1], sums)
+            sums = max(sums, 0)
+        
         # one pass
-        res = - 2**32
+        res = - 2 ** 32
         for i in xrange(1, size):
             res = max(left[i] + right[i], res)
+            
         return res
         
