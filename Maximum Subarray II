@@ -1,0 +1,48 @@
+Link: http://lintcode.com/en/problem/maximum-subarray-ii/
+
+Given an array of integers, find two non-overlapping subarrays which have the largest sum.
+
+The number in each subarray should be contiguous.
+
+Return the largest sum.
+
+Note
+The subarray should contain at least one number
+
+Example
+For given [1, 3, -1, 2, -1, 2], the two subarrays are [1, 3] and [2, -1, 2] or [1, 3, -1, 2] and [2], they both have the largest sum 7.
+
+Challenge
+Can you do it in time complexity O(n) ?
+
+
+class Solution:
+    """
+    @param nums: A list of integers
+    @return: An integer denotes the sum of max two non-overlapping subarrays
+    """
+    def maxTwoSubArrays(self, nums):
+        # write your code here    
+        if not nums or len(nums) == 0:
+            return 0
+        size = len(nums)
+        # left
+        left = [-2*32] * (size + 1)
+        sums = 0
+        for i in xrange(1, size + 1):
+                sums += nums[i - 1]
+                left[i] = max(left[i - 1], sums)
+                sums =  max(sums, 0)
+        # right
+        right = [- 2**32] * (size + 1)
+        sums = 0
+        for i in reversed(xrange(size)):
+                sums += nums[i]
+                right[i] = max(right[i + 1], sums)
+                sums = max(sums, 0)
+        # one pass
+        res = - 2**32
+        for i in xrange(1, size):
+            res = max(left[i] + right[i], res)
+        return res
+        
