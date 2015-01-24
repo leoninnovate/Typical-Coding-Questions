@@ -1,0 +1,65 @@
+Link: http://lintcode.com/en/problem/2-sum/#
+
+Given an array of integers, find two numbers such that they add up to a specific target number.
+
+The function twoSum should return indices of the two numbers such that they add up to the target, where index1 must be less than index2. Please note that your returned answers (both index1 and index2) are not zero-based.
+
+Note
+You may assume that each input would have exactly one solution
+
+Example
+numbers=[2, 7, 11, 15], target=9
+
+return [1, 2]
+
+Challenge
+1. O(1) Space, O(nlogn) Time
+
+2. O(n) Space, O(n) Time
+
+# O(n) Space, O(n) Time
+class Solution:
+    """
+    @param numbers : An array of Integer
+    @param target : target = numbers[index1] + numbers[index2]
+    @return : [index1 + 1, index2 + 1] (index1 < index2)
+    """
+    def twoSum(self, numbers, target):
+        # write your code here
+        if not numbers or len(numbers) < 2:
+            return None
+        maps = {}
+        size = len(numbers)
+        for i in xrange(size):
+            maps[numbers[i]] = i + 1
+        for num in numbers:
+            if target - num in maps and maps[target - num] != maps[num]:
+                return [maps[target - num], maps[num]] if maps[target - num] < maps[num] else [maps[num], maps[target - num]]
+# 1. O(1) Space, O(nlogn) Time        
+class Solution:
+    """
+    @param numbers : An array of Integer
+    @param target : target = numbers[index1] + numbers[index2]
+    @return : [index1 + 1, index2 + 1] (index1 < index2)
+    """
+    def twoSum(self, numbers, target):
+        # write your code here
+        if not numbers or len(numbers) < 2:
+            return None
+        arr = numbers[:]
+        numbers.sort()
+        left = 0
+        right = len(numbers) - 1
+        res = []
+        while left < right:
+            curr = numbers[left] + numbers[right]
+            if curr == target:
+                res.append(arr.index(numbers[left]) + 1)
+                res.append(arr.index(numbers[right]) + 1)
+                res.sort()
+                break
+            elif curr < target:
+                left += 1
+            else:
+                right -= 1
+        return res
