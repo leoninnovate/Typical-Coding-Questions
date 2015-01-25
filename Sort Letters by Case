@@ -1,0 +1,26 @@
+Link: http://lintcode.com/en/problem/sort-letters-by-case/
+
+Given a string which contains only letters. Sort it by lower case first and upper case second.
+
+Note
+It's not necessary to keep the original order of lower-case letters and upper case letters.
+
+Example
+For "abAcD", a reasonable answer is "acbAD"
+
+Challenge
+Do it in one-pass and in-place.
+
+class Solution:
+    """
+    @param chars: The letters array you should sort.
+    """
+    def sortLetters(self, chars):
+        # write your code here
+        closed = -1
+        for ind, val in enumerate(chars):
+            if ord(val) < ord('a'):
+                continue
+            else:
+                closed += 1
+                chars[ind], chars[closed] = chars[closed], chars[ind]
