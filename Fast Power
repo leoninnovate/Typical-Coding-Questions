@@ -1,0 +1,36 @@
+Link: http://lintcode.com/en/problem/fast-power/#
+
+Calculate the an % b where a, b and n are all 32bit integers.
+
+Example
+For 231 % 3 = 2
+
+For 1001000 % 1000 = 0
+
+Challenge
+O(logn)
+
+class Solution:
+    """
+    @param a, b, n: 32bit integers
+    @return: An integer
+    """
+    def fastPower(self, a, b, n):
+        # write your code here
+        return self.pow(a, b, n)
+    def pow(self, a, b, n):
+        if a == 0:
+            return 0
+        if n == 0:
+            return 1 % b
+        
+        res = self.pow(a, b, n / 2)
+        res *= res
+        res %= b
+        
+        if n % 2:
+            res *= a % b
+            
+        res %= b
+    
+        return res
