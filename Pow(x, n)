@@ -25,13 +25,13 @@ class Solution:
             return 0
         if n == 0:
             return 1
-        if n < 0:
-            res = x * self.pow(x, -(n + 1))
-            res = 1.0/res
+        elif n < 0:
+            res = x * pow(x, -(n + 1))
+            res = 1.0 / res
             return res
-        res = self.pow(x, n/2)
-        res = res * res
-        if n % 2:
-            res *= x
-        return res
-        
+        else:
+            res = pow(x, n / 2)
+            res = res * res
+            if n % 2:
+                res = res * x
+            return res
