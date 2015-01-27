@@ -1,0 +1,10 @@
+给一个序列，从中选一些pair，这些pair的要求是index相邻的距离为k，
+那么就会存在有些元素不能选之类的问题。比如共三个元素，k为2，那么只能选第一个和第三个。
+每个元素都有一个value，求选出的所有元素的value和最大.
+
+def pair(self, A, k):
+    size = len(A)
+    res = 0
+    for i in xrange(size - k - 1):
+        res = max(res, A[i] + A[i + k])
+    return res
