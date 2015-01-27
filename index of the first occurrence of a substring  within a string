@@ -1,0 +1,36 @@
+Implement a function to return the index of the first occurrence of a substring 
+within a string, or -1 if the substring is not present in the string
+
+input: coconut, nutt
+output: 4
+
+input:  coconut, o
+output: 1
+
+input: coconut, apple
+output: -1
+
+def (self, s1, s2):
+    # s2 is the substring
+    m = len(s1)
+    n = len(s2)
+    ind = -1
+    i = 0
+    while i < m:
+        tmp = i
+        j = 0
+        while j < n:
+            if i < m and s1[i] == s2[j]:
+                i += 1
+                j += 1
+            else:
+                break
+        if j == n - 1:
+            ind = tmp
+            break
+        else:
+            i = tmp + 1
+            
+    return ind
+    
+Time complexity: O(m*n)
