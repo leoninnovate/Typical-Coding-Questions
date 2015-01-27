@@ -35,3 +35,13 @@ def (self, s1, s2):
     return ind
     
 Time complexity: O(m*n)
+
+
+I needed a version of the string.index(sub) function which returns a list of indices of ALL occurances of a substring in the string.
+
+def allindices(string, sub, listindex=[], offset=0):
+    i = string.find(sub, offset)
+    while i >= 0:
+        listindex.append(i)
+        i = string.find(sub, i + 1)
+    return listindex
