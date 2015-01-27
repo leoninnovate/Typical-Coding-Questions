@@ -1,0 +1,32 @@
+给定两个array，第一个array为actual number，第二个array为第一个array的每一个元素对应的目标position，求如何根据第二个position将第一个array sort一遍
+
+例子:
+array1 : [5 0 3 2 8]. 鐣欏鐢宠璁哄潧-涓€浜╀笁鍒嗗湴
+array2 : [3 0 2 1 4]
+
+=>
+
+[0 2 3 5 8]
+
+# Solution 1: using a tuple
+def sort(array1, array2):
+    res = []
+    size = len(array1)
+    for i in xrange(size):
+        res.append((array1[i], array2[i]))
+    res.sort(key = lambda tup : tup[1])
+    ans = []
+    for i in xrange(size):
+        ans.append(res[i][0])
+    return ans
+
+# Solution 2: hashmap
+def sort(array1, array2):
+    maps = {}
+    size = len(array1)
+    for i in xrange(size):
+        maps[array2[i]] = array1[i]
+    res = []
+    for key in sorted(maps.keys()):
+        res.append(maps[key])
+    return res
