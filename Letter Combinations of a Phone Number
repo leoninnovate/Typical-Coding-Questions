@@ -1,0 +1,28 @@
+Link: https://oj.leetcode.com/problems/letter-combinations-of-a-phone-number/
+
+Given a digit string, return all possible letter combinations that the number could represent.
+
+A mapping of digit to letters (just like on the telephone buttons) is given below.
+
+
+
+Input:Digit string "23"
+Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
+Note:
+Although the above answer is in lexicographical order, your answer could be in any order you want.
+
+Show Tags
+
+class Solution:
+    # @return a list of strings, [s1, s2]
+    def letterCombinations(self, digits):
+        maps = {'2' : 'abc', '3' : 'def', '4' : 'ghi', '5' : 'jkl', '6' : 'mno', '7' : 'pqrs', '8' : 'tuv', '9' : 'wxyz'}
+        if not digits or len(digits) == 0:
+            return ['']
+        if len(digits) == 1:
+            return [char for char in maps[digits]]
+        tmp = [char for char in maps[digits[0]]]
+        res = []
+        for item in self.letterCombinations(digits[1:]):
+            res.extend([char + item for char in tmp])
+        return res
