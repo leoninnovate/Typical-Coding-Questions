@@ -10,7 +10,7 @@ output: 1
 input: coconut, apple
 output: -1
 
-# simple way to deal with it:   s1.index(s2)
+# simple way to deal with it:   s1.index(s2); s1.find(s2)
 def (self, s1, s2):
     # s2 is the substring
     m = len(s1)
