@@ -1,0 +1,51 @@
+    
+Find k most frequently occurring numbers
+
+for example for input 4,3,5,4,1,6,2,4,3,2,3,8,9,1
+and k == 1 (no of numbers)
+
+fequency - occurence
+4   3
+3   3
+1   2
+2   2
+5   1
+6   1
+8   1
+9   1
+
+either 4 or 3
+k == 2
+answer 4,3
+
+maps.values() - [3, 3, 2, 2, 1, 1, 1, 1]
+output: 3,4,1,2 or 3,4,2 (order is not important) 
+
+NlogN < n*n because k == n-1
+
+map of frequencies
+convert into an list of tuples of (key, value)
+and then sort that list based on the value
+
+def mostOccurring(self, A, k):
+    maps = {}
+    for num in A:
+        if num in maps:
+            maps[num] += 1
+        else:
+            maps[num] = 1
+    res = []
+    for item in maps:
+        res.append((item, maps[item])
+        
+    res.sort(# key = value, reversed = True)
+    
+    ans = []
+    
+    for i in xrange(k):
+        ans.append(res[i][0])
+    return ans
+    
+NlogN - becuase of sorting
+
+heap - Time complexity: N*logK
