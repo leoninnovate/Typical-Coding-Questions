@@ -1,0 +1,45 @@
+Link: http://lintcode.com/en/problem/kth-largest-element/#
+
+Find K-th largest element in an array.
+
+Note
+You can swap elements in the array
+
+Example
+In array [9,3,2,4,8], the 3th largest element is 4
+
+Challenge
+O(n) time, O(1) space
+
+class Solution:
+    # @param k & A a integer and an array
+    # @return ans a integer
+    def kthLargestElement(self, k, A):
+        if k < 1 or not A:
+            return 0
+        size = len(A)
+        return self.getKth(size - k + 1, A, 0, size - 1)
+        
+    def getKth(self, k, A, start, end):
+        # Choose the last one as the pivot
+        pivot = A[end]
+        left = start
+        right = end
+        while True:
+            while A[left] < pivot and left < right:
+                left += 1
+            while A[right] >= pivot and right > left:
+                right -= 1
+            if left == right:
+                break
+            A[left], A[right] = A[right], A[left]
+        # left: the first one which is bigger than pivot
+        A[left], A[end] = A[end], A[left]
+        if k == left + 1:
+            return pivot
+        # Try to find the element from the left side
+        elif k < left + 1:
+            return self.getKth(k, A, start, left - 1)
+        else:
+        # Try to find the element from the right side
+            return self.getKth(k, A, left + 1, end)
