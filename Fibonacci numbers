@@ -1,0 +1,42 @@
+经典算法是O(N)
+更快的是O(LgN)
+
+# Recursion O(N)
+
+def fib(n):
+    if n <= 1:
+        return n
+    return fib(n - 1) + fib(n - 2)
+    
+# Recursion with Memoriazation O(N)
+
+def fib(n):
+    memo = {0:0, 1:1}
+    if not n in memo:
+        memo[n] = fib(n - 1) + fib(n - 2)
+    return memo[n]
+
+# DP O(N)
+
+def fib(n):
+    dp = [0] * (n + 2)
+    dp[1] = 1
+    for i in xrange(2, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
+    return dp[n]
+    
+# Matrix Mutiplication
+http://en.literateprograms.org/Fibonacci_numbers_(Python)
+def mul(A, B):
+    a, b, c = A
+    d, e, f = B
+    return a*d + b*e, a*e + b*f, b*e + c*f
+
+def pow(A, n):
+    if n == 1:     return A
+    if n & 1 == 0: return pow(mul(A, A), n//2)
+    else:          return mul(A, pow(mul(A, A), (n-1)//2))
+
+def fib(n):
+    if n < 2: return n
+    return pow((1,1,0), n-1)[0]
