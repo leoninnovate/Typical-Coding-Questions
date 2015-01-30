@@ -1,0 +1,46 @@
+Link: http://leetcode.com/2011/07/lowest-common-ancestor-of-a-binary-tree-part-ii.html
+
+# O(h), N space
+def lowestCommonAncestor(self, A, B):
+    visited = set()
+    
+    while A or B:
+        if A:
+            if A in visited:
+                return A
+            else:
+                visited.add(A.val)
+            A = A.parent
+        if B:
+            if B in visited:
+                return B
+            else:
+                visited.add(B.val)
+            B = B.parent
+            
+    return None
+
+# O(h), O(1) space
+
+def height(self, node):
+    h = 0
+    while node:
+        h += 1
+        node = node.parent
+    return h
+    
+def lowestCommonAncestor(self, A, B):
+    h1 = self.height(A)
+    h2 = self.height(B)
+    if h1 > h2:
+        h1, h2 = h2, h1
+        A, B = B, A
+    dh = h2 - h1
+    for h in xrange(h):
+        B = B.parent
+    while A and B:
+        if A == B:
+            return A
+        A = A.parent
+        B = B.parent
+    return None
