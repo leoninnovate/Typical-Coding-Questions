@@ -33,23 +33,27 @@ if (A[pa]>B[pb]), the same procedure is applied but we "cut" the B array.
 In this way, every time we have "cut" K/2 elements from one of the arrays, the next time is to cut (K/2) /2 elements from the new arrays, until:
 (1) K=1, the smaller one from A[0] and B[0] is the "Kth element".
 (2) One of the array meets the end. Then just return the current Kth element from the other array.
+
+
 class Solution:
     # @return a float
-    # @line20 must multiply 0.5 for return a float else it will return an int
-    def getKth(self, A, B, k):
-        lenA = len(A); lenB = len(B)
-        if lenA > lenB: return self.getKth(B, A, k)
-        if lenA == 0: return B[k - 1]
-        if k == 1: return min(A[0], B[0])
-        pa = min(k/2, lenA); pb = k - pa
-        if A[pa - 1] <= B[pb - 1]:
-            return self.getKth(A[pa:], B, pb)
-        else:
-            return self.getKth(A, B[pb:], pa)
-    
     def findMedianSortedArrays(self, A, B):
-        lenA = len(A); lenB = len(B)
-        if (lenA + lenB) % 2 == 1: 
-            return self.getKth(A, B, (lenA + lenB)/2 + 1)
+        if (len(A) + len(B)) % 2 == 0:
+            return (self.fms(A, B, (len(A) + len(B))/2) + self.fms(A, B, (len(A) + len(B))/2 + 1))/2.0
         else:
-            return (self.getKth(A, B, (lenA + lenB)/2) + self.getKth(A, B, (lenA + lenB)/2 + 1)) * 0.5
+            return self.fms(A, B, (len(A) + len(B))/2 + 1)
+     
+    def fms(self, A, B, k):
+        if len(A) > len(B):
+            return self.fms(B, A, k)
+        else:
+            if len(A) == 0:
+                return B[k-1]
+            if k == 1:
+                return min(A[0], B[0])
+            pa = min(k/2, len(A))
+            pb = k - pa
+            if A[pa-1] <= B[pb-1]:
+                return self.fms(A[pa::], B, k-pa)
+            else:
+                return self.fms(A, B[pb::], k-pb)
