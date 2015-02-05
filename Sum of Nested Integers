@@ -1,0 +1,12 @@
+The input is a nested intergers, sum all the numbers in the input. Example: [1, [2, 3], [[4, 5], [6, 7]], [8, 9]]
+
+def nested_sum(self, L):
+    res = 0
+    if not L or len(L) == 0:
+        return res
+    for item in L:
+        if isinstance(item, list):
+            res += self.nested_sum(item)
+        else:
+            res += item
+    return res
