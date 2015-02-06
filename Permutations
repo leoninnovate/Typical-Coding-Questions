@@ -53,3 +53,27 @@ For example,
             arr.append(nums[i])
             self.helper(nums, res, arr)
             del arr[-1]
+
+# Updated DFS
+class Solution:
+    """
+    @param nums: A list of Integers.
+    @return: A list of permutations.
+    """
+    def permute(self, nums):
+        # write your code here
+        res = []
+        if not nums or len(nums) == 0:
+            return res
+        path = []
+        self.DFS(nums, path, res)
+        return res
+        
+    def DFS(self, nums, path, res):
+        if len(path) == len(nums):
+            res.append(path)
+        for i in xrange(len(nums)):
+            if nums[i] in path:
+                continue
+            self.DFS(nums, path + [nums[i]], res)
+            
