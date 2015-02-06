@@ -46,3 +46,24 @@ If S = [1,2,2], a solution is:
             arr.append(S[i])
             self.helper(S, res, arr,i + 1)
             del arr[-1]
+
+# updated DFS
+class Solution:
+    """
+    @param S: A set of numbers.
+    @return: A list of lists. All valid subsets.
+    """
+    def subsetsWithDup(self, S):
+        # write your code here
+        res = []
+        if not S or len(S) == 0:
+            return res
+        path = []
+        S.sort()
+        self.DFS(S, 0, path, res)
+        return res
+    def DFS(self, S, pos, path, res):
+        if path not in res:
+            res.append(list(path))
+        for i in xrange(pos, len(S)):
+            self.DFS(S, i + 1, path + [S[i]], res)
